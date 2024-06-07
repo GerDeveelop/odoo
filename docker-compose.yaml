@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+    odoo17:
+        image: odoo:17.0
+        container_name: odoo17
+        depends_on:
+            - postgres15
+        ports:
+            - "8070:8069"
+        networks:
+            - odoo_network
+        volumes:
+            - ./odoo-web-data:/var/lib/odoo
+            - ./addons:/mnt/extra-addons
+            - ./enterprise:/mnt/enterprise
+            - ./config:/etc/odoo
+        command: odoo -u all -i base,sale_management,stock,purchase,contacts -d odoo --dev all --db-filter=^odoo$$ --without-demo=all
+        environment:
+            - HOST=postgres15
+            - USER=odoo
+            - PASSWORD=odoo
+            - ODOO_STAGE=local
+    postgres15:
+        image: postgres:15
+        container_name: postgres15
+        ports:
+            - "5434:5432"
+        networks:
+            - odoo_network
+        volumes:
+            - ./odoo-db-data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_DB=odoo
+            - POSTGRES_USER=odoo
+            - POSTGRES_PASSWORD=odoo
+            - PGDATA=/var/lib/postgresql/data/pgdata
+
+networks:
+    odoo_network:
