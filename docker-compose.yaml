@@ -17,7 +17,7 @@ services:
             - ./config:/etc/odoo
         command: odoo -u all -i base,sale_management,stock,purchase,contacts -d odoo --dev all --db-filter=^odoo$$ --without-demo=all
         environment:
-            - HOST=postgres15
+            - HOST=odoo_db
             - USER=odoo
             - PASSWORD=odoo
             - ODOO_STAGE=local
