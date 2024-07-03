@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_peliculas_form" model="ir.ui.view">
+            <field name="name">vista peliculas</field>
+            <field name="model">peliculas</field>
+            <field name="arch" type="xml">
+            <form>  
+                <header>
+                <!--status bar para los estados de los process-->
+                    <button string="Borrador" type="object" name="borrador_presupuesto" class="oe_highlight" invisible="state not in ('cancelado,aprobado')"/>
+                    <button string="Aprobar" type="object" name="aprobar_presupuesto" class="oe_highlight" invisible="state not in ('borrador')"/>
+                    <button string="Cancelar" type="object" name="cancelar_presupuesto" />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <div class="alert alert-info" role="alert" style="margin-bottom: 0" invisible="'description_clasification' == False" >
+                    <field name="description_clasification" readonly="1"/>                    
+                </div>
+                <sheet>
+                <!--name->nombre del widget, attrs-> cambio por la condicion directa; ejemplo: invisible="active == True"-->
+                    <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" invisible="active == True"/>
+                        <field name="image_1920" widget="image" class="oe_avatar"
+                                options="{'preview_image': 'image_128', 'size':[120,120]}"/>        
+                        <div class="oe_title">
+                            <div class="o_row">
+                                <field name="active" invisible="1"/>
+                                <h1 style="display: flex;">
+                                    <field name="name" placeholder="Nombre de la pelicula" required="1"
+                                            default_focus="1" class="oe_inline"/>
+                                    <field name="puntuacion" widget="percentpie" string=" " style="padding-left: 10px;" class="oe_inline"/>
+                                    <field name="puntuacion2" class="oe_editline oe_inline" style="padding-left: 50px;"/>
+                                </h1> 
+                            </div>
+                            <div class="o_row" style="display: flex;">
+                                <field name="clasificacion" required="1" placeholder="Clasificacion de la pelicula"/>
+                                <span class="fa fa-circle"
+                                        invisible="clasificacion == False, fecha_estreno == False"
+                                        style="font-size: 10px; padding: 10px 10px;"/>
+                                <field name="fecha_estreno" placeholder="Fecha de estreno"/>
+                            </div>
+
+                            <div class="o_row">
+                                <field name="generos_ids" widget="many2many_tags" placeholder="tipo de Genero" 
+                                       options="{'no_create': True}"/>
+                            </div>
+                        </div>
+                    <group string="Datos principales" >
+                        <field name="vista_general" placeholder="Descripcion general..." readonly="state not in ('borrador')"/>
+                        <group>
+                            <field name="director_id" placeholder="Director"
+                                    domain="[('category_id','in', [director_categories])]"
+                                    options="{'no_create': True, 'no_open': True}"/>
+                            <field name="director_categories" string="Categorias director" placeholder="Categoria" invisible="1"/>
+                            <field name="link_triler" placeholder="Link del trailer" widget="url"/>
+                            <field name="fecha_aprobado"/>
+                        </group>
+                        <group>
+                            <field name="es_libro" string="Es libro" widget="boolean_toggle"/>
+                            <!--para ver reflejado el nombre del libro se crea un campo libro_filename = tipo char en el modulo peliculas-->
+                            <field name="libro" string="Nombre del libro" filename="libro_filename" invisible="es_libro == False"/>
+                            <field name="libro_filename" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+    </data>
+</odoo>

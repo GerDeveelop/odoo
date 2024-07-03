@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="modelo_peliculas_view_form" model="ir.actions.act_window">
+            <field name="name">Peliculas</field>
+            <field name="res_model">peliculas</field>
+            <field name="view_mode">kanban,form</field>
+        </record>
+
+
+        <menuitem id="menu_principal" name="Peliculas"/>
+        <menuitem id="menu_horizontal" name="pelicula" parent="menu_principal"/>
+        <menuitem id="menu_vertical" name="lista peliculas" parent="menu_horizontal" action="modelo_peliculas_view_form" />
+        <menuitem id="gender_type" name="Gender type" parent="menu_horizontal" action="gender_type_action_window"/>
+        
+        
+    </data>
+</odoo>

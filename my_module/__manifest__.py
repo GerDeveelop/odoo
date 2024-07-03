@@ -10,7 +10,7 @@
         Long description of module's purpose
     """,
 
-    'author': "My Company",
+    'author': "ger",
     'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
@@ -20,13 +20,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': [
+        'base',
+        'contacts',
+        ],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+        #'security/ir.model.access.csv',
+        'views/view_gender_type.xml',
+        'views/view_menus_peliculas.xml',
+        'views/view_form_peliculas.xml',
+        
+       
     ],
     # only loaded in demonstration mode
     'demo': [
