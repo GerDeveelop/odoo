@@ -3,11 +3,11 @@ version: '3.1'
 services:
     odoo17:
         image: odoo:17.0
-        container_name: odoo17
+        container_name: odoo_17
         depends_on:
-            - postgres15
+            - odoo_db
         ports:
-            - "8070:8069"
+            - "8070:8070"
         networks:
             - odoo_network
         volumes:
@@ -17,13 +17,13 @@ services:
             - ./config:/etc/odoo
         command: odoo -u all -i base,sale_management,stock,purchase,contacts -d odoo --dev all --db-filter=^odoo$$ --without-demo=all
         environment:
-            - HOST=postgres15
+            - HOST=odoo_db
             - USER=odoo
             - PASSWORD=odoo
             - ODOO_STAGE=local
-    postgres15:
+    odoo_db:
         image: postgres:15
-        container_name: postgres15
+        container_name: odoo_db
         ports:
             - "5434:5432"
         networks:

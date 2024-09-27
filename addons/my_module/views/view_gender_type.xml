@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+   <record id="genero_view_tree_form" model="ir.ui.view">
+            <field name="name">genero_tree_form</field>
+            <field name="model">genero.peliculas</field>
+            <field name="arch" type="xml">
+                <tree string="Tipo de genero">
+                    <field name="genero_pelicula"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="gender_type_action_window" model="ir.actions.act_window">
+            <field name="name">Gender type</field>
+            <field name="res_model">genero.peliculas</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+   </data>
+</odoo>

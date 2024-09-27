@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<odoo>
+    <record id="prueba_atributo" model="ir.ui.view">
+        <field name="name">prueba_atributo</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="options">"{'no_create': True}"</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
+
+
+
+
